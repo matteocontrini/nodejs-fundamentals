@@ -783,8 +783,6 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
     res.status(404).json({ error: 'Page not found' });
 });
-
-app.listen(3000);
 ```
 
 Nel codice sopra, registriamo un middleware chiamato `app.use()`. La funzione di callback viene chiamata non appena arriva una richiesta HTTP (una qualsiasi), e **l'elaborazione non procede finché non viene chiamata la funzione `next()`**.
@@ -855,7 +853,7 @@ console.log(name + '(' + age + ')');
 
 ## Express.js: i middleware come moduli
 
-I moduli si possono sfruttare anche in combinazione con Express.js. Immaginiamo ad esempio di avere una API scritta con Express, con due endpoint `/movies`  e `/songs`. Il codice assomiglierà più o meno a:
+I moduli si possono sfruttare anche in combinazione con Express.js. Immaginiamo di avere una API scritta con Express, con due endpoint `/movies`  e `/songs`. Il codice assomiglierà più o meno a:
 
 ```js
 const express = require('express');

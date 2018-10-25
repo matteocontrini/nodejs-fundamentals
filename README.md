@@ -570,7 +570,7 @@ Prima o poi ti capiterà di utilizzare le callback nel tuo codice. Ad esempio, s
 function getResponseStatusCode(url, callback) {
     request(url, (err, res, body) => {
     	callback(res.statusCode);
-	});
+    });
 }
 
 let url = 'https://unitn.it';
@@ -595,7 +595,7 @@ function getResponseStatusCode(url, callback) {
         }
         
     	callback(null, res.statusCode);
-	});
+    });
 }
 
 let url = 'https://unitn.it';
@@ -721,7 +721,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-   res.send('Hello'); 
+    res.send('Hello'); 
 });
 
 app.listen(3000);
@@ -743,7 +743,7 @@ Il codice sopra si può modificare lievemente per fare in modo che risponda alle
 app.get('/', (req, res) => {
     let roba = { name: 'Niccolò' };
     
-	res.send(roba); 
+    res.send(roba); 
 });
 ```
 
@@ -777,7 +777,7 @@ app.use('/', (req, res, next) => {
 app.get('/', (req, res) => {
     let roba = { name: 'Niccolò' };
     
-	res.send(roba); 
+    res.send(roba); 
 });
 
 app.use((req, res) => {

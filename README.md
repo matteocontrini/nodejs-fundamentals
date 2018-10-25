@@ -393,9 +393,9 @@ C'è di più, aprendo una finestra del terminale e scrivendo `node`, si entra ne
 
 ## npm
 
-npm è il gestore dei pacchetti di Node.js, installato in automatico con Node.js.
+npm è il gestore dei pacchetti di Node.js, installato in automatico con Node.js. I pacchetti disponibili sono consultabili sul sito web [npmjs.com](https://www.npmjs.com/).
 
-Nelle versioni recenti di npm, per installare un nuovo modulo nella cartella corrente si usa:
+Nelle versioni recenti di npm, per installare un nuovo modulo nel progetto corrente si usa:
 
 ```bash
 npm install nomemodulo
@@ -426,7 +426,7 @@ Quando i file sorgente vengono modificati, per riavviare l'applicazione bisogna 
 
 Più facilmente, si può installare il modulo `nodemon` globalmente (cioè in una cartella di sistema che vale per tutti i progetti), e poi usarlo al posto di node. In questo modo, il processo si riavvierà in automatico ad ogni modifica del codice sorgente.
 
-Da esguire solo una volta:
+Da eseguire solo una volta:
 
 ```sh
 npm install -g nodemon
@@ -677,7 +677,7 @@ Eseguendo questo codice, si scoprirà che **il codice all'interno del timeout no
 
 **Questo è il motivo fondamentale per cui Node.js non va usato per eseguire operazioni che richiedono molta CPU**. Immaginate un server web che gestisce 10 richieste al secondo. Se ciascuna di queste richieste impiega un secondo di CPU (quindi ad esempio c'è un ciclo enorme), le richieste devono attendere rispettivamente 1, 2, 3, ecc. secondi prima di ricevere una risposta!
 
-**RICORDA**: mai inserire codice sincrono che richiede molto tempo ad essere eseguito, altrimenti Node.js non worka!
+**RICORDA**: mai inserire codice sincrono che richiede molto tempo ad essere eseguito, altrimenti Node.js non worka! La "potenza" di Node.js è quella di riuscire a ottenere prestazioni eccezionali quando ci sono tante operazioni di I/O (ad esempio lettura/scrittura su un database), ma con poco codice che usa la CPU!
 
 C'è un'altra cosa da notare. Scriviamo del codice che esegue delle operazioni sincrone, poi chiama qualcosa di asincrono, e poi nient'altro. Nel momento in cui c'è la chiamata asincrona, il loop degli eventi "stacca" la CPU dalla funzione, e continua eventualmente il suo lavoro con altro codice in coda.
 

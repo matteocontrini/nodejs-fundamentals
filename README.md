@@ -355,14 +355,22 @@ for (let i = 0; i <= 10; i++) {
 }
 ```
 
-Il foreach non esiste, ma è sostituito da `for... of`, praticamente uguale:
+Il foreach non esiste, ma è sostituito da `for...of`, praticamente uguale:
 
 ```js
 let arr = [1, 2, 3];
 
-for (let item of array) {
+for (let item of arr) {
     console.log(item);
 }
+```
+
+Esiste anche un altro modo per iterare un array, usando la funzione `forEach` definita sul tipo `Array`:
+
+```js
+arr.forEach((item) => {
+    console.log(item);
+});
 ```
 
 ## Undefined

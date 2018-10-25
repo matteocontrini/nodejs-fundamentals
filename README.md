@@ -29,6 +29,7 @@
 * [Express.js: rispondere con JSON](#expressjs-rispondere-con-json)
 * [Express.js: middleware](#expressjs-middleware)
 * [Strutturare il codice in moduli](#strutturare-il-codice-in-moduli)
+* [Express.js: i middleware come moduli](#expressjs-i-middleware-come-moduli)
 * [Cose moderne: Promise](#cose-moderne-promise)
 * [Cose moderne: async/await](#cose-moderne-asyncawait)
 * [Come approfondire](#come-approfondire)
@@ -722,6 +723,8 @@ const app = express();
 app.get('/', (req, res) => {
    res.send('Hello'); 
 });
+
+app.listen(3000);
 ```
 
 **Stiamo mettendo in pratica tutto quanto detto finora.**
@@ -729,6 +732,8 @@ app.get('/', (req, res) => {
 Il modulo `express`  viene importato come costante, e questo modulo è una funzione. Nella seconda riga infatti eseguiamo `express()` per creare un'istanza del server web. Come si fa a sapere che si fa così e magari non scrivendo  `new express()`? Dipende da modulo a modulo, quindi bisogna leggere la sua documentazione.
 
 Successivamente, nel codice registriamo una funzione per ricevere le richieste GET all'endpoint / del server web. La funzione è una funzione di callback, e in questo caso riceve due variabili come argomenti: quella che descrive la richiesta e quella che descrive la risposta. `res` permette anche di rispondere e inviare qualcosa al client.
+
+Alla fine del codice il server viene avviato con una chiamata a `app.listen()`. Da quel momento in poi, il server accetta richieste HTTP ed utilizza i middleware e le route specificate in precedenza per gestire le richieste.
 
 ## Express.js: rispondere con JSON
 
@@ -778,6 +783,8 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
     res.status(404).json({ error: 'Page not found' });
 });
+
+app.listen(3000);
 ```
 
 Nel codice sopra, registriamo un middleware chiamato `app.use()`. La funzione di callback viene chiamata non appena arriva una richiesta HTTP (una qualsiasi), e **l'elaborazione non procede finché non viene chiamata la funzione `next()`**.
@@ -844,6 +851,82 @@ let name = modulo.getName();
 let age = modulo.getAge();
 
 console.log(name + '(' + age + ')');
+```
+
+## Express.js: i middleware come moduli
+
+I moduli si possono sfruttare anche in combinazione con Express.js. Immaginiamo ad esempio di avere una API scritta con Express, con due endpoint `/movies`  e `/songs`. Il codice assomiglierà più o meno a:
+
+```js
+const express = require('express');
+const app = express();
+
+app.get('/movies', (req, res) => {
+    let movies = [
+        { title: 'Sunshine', year: 2007 },
+        { title: 'Your Name.', year: 2016 }
+    ];
+    
+    res.json(movies);
+});
+
+app.get('/songs', (req, res) => {
+    let songs = [
+        { title: 'Ophelia', artist: 'Roo Panes' },
+        { title: 'Gosh', artist: 'Jamie xx' }
+    ];
+    
+    res.json(songs);
+});
+
+app.listen(3000);
+```
+
+Quando gli endpoint diventano tanti e più complessi, il codice può diventare ingestibile. Si può allora spostare il codice delle funzioni callback in moduli separati. Ad esempio:
+
+File `movies.js`:
+
+```js
+let getMovies = (req, res) => {
+    let movies = [
+        { title: 'Sunshine', year: 2007 },
+        { title: 'Your Name.', year: 2016 }
+    ];
+    
+    res.json(movies);
+};
+
+module.exports = { getMovies };
+```
+
+File `songs.js`:
+
+```js
+let getSongs = (req, res) => {
+    let songs = [
+        { title: 'Ophelia', artist: 'Roo Panes' },
+        { title: 'Gosh', artist: 'Jamie xx' }
+    ];
+    
+    res.json(songs);
+};
+
+module.exports = { getSongs };
+```
+
+Il file principale diventa quindi molto più compatto:
+
+```js
+const express = require('express');
+const app = express();
+
+const movies = require('./movies.js');
+const songs = require('./songs.js');
+
+app.get('/movies', movies.getMovies);
+app.get('/songs', songs.getSongs);
+
+app.listen(3000);
 ```
 
 ## Cose moderne: Promise

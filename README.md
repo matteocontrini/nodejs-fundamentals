@@ -1,5 +1,38 @@
 # Fondamentali di Node.js [![This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 
+## Indice:
+
+* [Cos'è?](#cosè)
+* [Documentazione di JavaScript](#documentazione-di-javascript)
+* [Compilatore?](#compilatore)
+* [Versioni di JavaScript](#versioni-di-javascript)
+* [Le variabili in JavaScript](#le-variabili-in-javascript)
+* [I tipi](#i-tipi)
+* [I numeri](#i-numeri)
+* [Stringhe](#stringhe)
+* [Le classi?](#le-classi)
+* [Object literal](#object-literal)
+* [Array literal](#array-literal)
+* [Truthiness e  falsiness](#truthiness-e--falsiness)
+* [For each?](#for-each)
+* [Undefined](#undefined)
+* [Node.js REPL](#nodejs-repl)
+* [npm](#npm)
+* [node e nodemon](#node-e-nodemon)
+* [Importare i moduli nel codice](#importare-i-moduli-nel-codice)
+* [La natura asincrona di Node.js](#la-natura-asincrona-di-nodejs)
+* [Funzioni, funzioni anonime, e funzioni freccia](#funzioni-funzioni-anonime-e-funzioni-freccia)
+* [Callback?](#callback)
+* [Il loop degli eventi](#il-loop-degli-eventi)
+* [Torniamo alla definizione...](#torniamo-alla-definizione)
+* [Express.js](#expressjs)
+* [Express.js: rispondere con JSON](#expressjs-rispondere-con-json)
+* [Express.js: middleware](#expressjs-middleware)
+* [Strutturare il codice in moduli](#strutturare-il-codice-in-moduli)
+* [Cose moderne: Promise](#cose-moderne-promise)
+* [Cose moderne: async/await](#cose-moderne-asyncawait)
+* [Come approfondire](#come-approfondire)
+
 ## Cos'è?
 
 **Node.js** è un runtime per JavaScript, cioè un ambiente che permette di eseguire del codice JavaScript.

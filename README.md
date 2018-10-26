@@ -969,7 +969,7 @@ downloadFile().then((path) => {
 });
 ```
 
-La funzione `downloadFile`  ritorna una Promise. Dobbiamo saperlo in anticipo, perché se chi ha scritto quella funzione non ha  pensato alle Promise, questa cosa non funziona.
+La funzione `downloadFile`  ritorna una Promise. Dobbiamo saperlo in anticipo, perché se chi ha scritto quella funzione non ha pensato alle Promise, questa cosa non funziona.
 
 La Promise ritornata dalla funzione è un oggetto, su cui sono definiti dei metodi. Uno di questi è la funzione `then(fn)`. È facile intuire a cosa serve. Quando l'esecuzione del codice della Promise termina  (si dice che la Promise viene *risolta*), la funzione di callback che specifichiamo viene chiamata.
 
@@ -1045,7 +1045,7 @@ downloadFile()
 
 Ti starai chiedendo: ma tutti gli esempi che abbiamo visto finora usavano le callback normali, come si fa a usare le Promise?
 
-Beh... È un casino. **Se vuoi usare le Promise, l'ideale sarebbe che i moduli che usi supportino le Promise**. Ad esempio, il modulo `node-fetch` per eseguire richieste HTTP le supporta senza fare nulla. Puoi quindi scrivere:
+Beh... È un casino. **Se vuoi usare le Promise, l'ideale sarebbe che i moduli che usi supportino le Promise**. Ad esempio, il modulo `node-fetch` per eseguire richieste HTTP le supporta in automatico. Puoi quindi scrivere:
 
 ```js
 const fetch = require('node-fetch');
@@ -1082,7 +1082,7 @@ Cosa succede all'interno di `promisify`? Viene creata in modo automatico una Pro
 
 Ora che abbiamo incasinato le cose per bene con le Promise, proviamo a semplificarle. A partire da Node.js 7.6 (versione di JavaScript ES2017), è stato abilitato il supporto all'operatore `await`. Il suo scopo è quello di prendere una Promise e di eseguirla *come se fosse codice sincrono*.
 
-Ad esempio, prendiamo la Promise per leggere un file che abbiamo creato prima, e usiamola con await:
+Ad esempio, prendiamo la Promise per leggere un file che abbiamo creato prima, e usiamola con `await`:
 
 ```js
 let content = await readFile('file.txt');
@@ -1091,9 +1091,9 @@ console.log(content);
 
 **È ancora tutto asincrono e non bloccante, ma l'impressione è che il codice sia sincrono (e sequenziale).**
 
-Con await, le callback non si usano più. Ma per poterlo usare, devi avere a disposizione delle Promise.
+Con `await`, le callback non si usano più. Ma per poterlo usare, devi avere a disposizione delle Promise.
 
-Per far funzionare il pezzo di codice sopra, dobbiamo però inserirlo in una funzione, e dichiarare la funzione come asincrona. Esempio:
+Per far funzionare il pezzo di codice sopra, dobbiamo inserirlo in una funzione, e dichiarare la funzione come asincrona. Esempio:
 
 ```js
 async function run() {

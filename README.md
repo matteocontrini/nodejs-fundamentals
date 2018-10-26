@@ -935,13 +935,186 @@ app.listen(3000);
 
 ## Cose moderne: Promise
 
-![](https://miro.medium.com/max/480/1*WScLtOWQpMpU0QTLvsD4yA.jpeg)
+Come detto prima, quando si hanno più operazioni asincrone da eseguire in sequenza il codice va "annidato" all'interno delle callback.
 
-*coming soon*
+Questa pratica genera però in alcuni casi un problema che viene chiamato **callback hell**. Avviene quando ci sono molte callback dentro altre callback, e quindi l'indentazione del codice tende a crescere molto rapidamente, con problemi di leggibilità del codice e maggiore probabilità di introdurre bug.
+
+Un esempio potrebbe essere questo:
+
+```js
+downloadFile((path) => {
+    openFile(path, (fd) => {
+        readFile(fd, (content) => {
+            parseFile(content, (data) => {
+                process(data, () => {
+                    console.log('Finish');
+                });
+            });
+        });
+    });
+});
+```
+
+Le funzioni sono inventate, ma l'idea di base è che quando ci sono molte operazioni asincrone che hanno bisogno del risultato di un'altra operazione asincrona, si può arrivare a una situazione di questo tipo.
+
+Le **Promise** sono un tentativo di risolvere questo problema. L'obiettivo è "appiattire" la struttura del codice, ed evitare quindi l'indentazione ad ogni chiamata asincrona.
+
+Supponiamo per un attimo di avere una funzione che ritorni una Promise. Se con le callback dovevamo chiamare una funzione e passare una funzione di callback come parametro, con le Promise la callback non va passata alla funzione direttamente, ma a una funzione `.then()`, da eseguire sulla Promise.
+
+Vediamo un esempio che è meglio:
+
+```js
+downloadFile().then((path) => {
+    // questa è la callback
+});
+```
+
+La funzione `downloadFile`  ritorna una Promise. Dobbiamo saperlo in anticipo, perché se chi ha scritto quella funzione non ha  pensato alle Promise, questa cosa non funziona.
+
+La Promise ritornata dalla funzione è un oggetto, su cui sono definiti dei metodi. Uno di questi è la funzione `then(fn)`. È facile intuire a cosa serve. Quando l'esecuzione del codice della Promise termina  (si dice che la Promise viene *risolta*), la funzione di callback che specifichiamo viene chiamata.
+
+**Una Promise non è altro che un "contenitore" di codice. Quando una Promise viene creata, il suo codice viene eseguito istantaneamente!**
+
+Quanto detto finora non risolve però il problema del "callback hell". Infatti, se riscriviamo il codice di prima con le Promise, siamo da capo, abbiamo solo spostato il problema:
+
+```js
+downloadFile().then((path) => {
+    openFile(path).then((fd) => {
+        readFile(fd).then((content) => {
+            parseFile(content).then((data) => {
+                process(data).then(() => {
+                    console.log('Finish');
+                });
+            });
+        });
+    });
+});
+```
+
+La funzionalità cruciale delle Promise che ci permette di risolvere il callback hell è la *concatenabilità* delle Promise. Significa che una Promise può essere "collegata" a un'altra Promise.
+
+Vediamo subito l'esempio sopra con le Promise usate bene:
+
+```js
+downloadFile()
+    .then((path) => {
+        return openFile(path);
+    })
+    .then((fd) => {
+        return readFile(fd);
+    })
+    .then((content) => {
+        return parseFile(content);
+    })
+    .then((data) => {
+        return process(data);
+    })
+    .then(() => {
+        console.log('Finish');
+    });
+```
+
+Visto? Abbiamo scritto una catena di Promise. **Stiamo ancora usando le callback**, ma non stiamo più aumentando l'indentazione ad ogni chiamata asincrona.
+
+Come si gestiscono gli errori? Con le Promise non abbiamo più l'*error-first callback* che abbiamo visto prima. Gli errori possono essere gestisti con la funzione `catch(fn)`. Il codice sopra diventa quindi una cosa del genere:
+
+```js
+downloadFile()
+    .then((path) => {
+        return openFile(path);
+    })
+    .then((fd) => {
+        return readFile(fd);
+    })
+    .then((content) => {
+        return parseFile(content);
+    })
+    .then((data) => {
+        return process(data);
+    })
+    .then(() => {
+        console.log('Finish');
+    })
+    .catch((err) => {
+        console.log('There\'s been an error');
+        console.log(err);
+    });
+```
+
+**Il gestore degli errori (quello in fondo) vale per tutte le Promise della catena**. Se un'operazione fallisce, la catena si interrompe e il prossimo gestore degli errori viene richiamato.
+
+Ti starai chiedendo: ma tutti gli esempi che abbiamo visto finora usavano le callback normali, come si fa a usare le Promise?
+
+Beh... È un casino. **Se vuoi usare le Promise, l'ideale sarebbe che i moduli che usi supportino le Promise**. Ad esempio, il modulo `node-fetch` per eseguire richieste HTTP le supporta senza fare nulla. Puoi quindi scrivere:
+
+```js
+const fetch = require('node-fetch');
+
+fetch('https://unitn.it')
+    .then((resp) => {
+        console.log(resp.text());
+    });
+```
+
+Ma c'è un piiiiccolo problema. **I moduli nativi di Node.js**, ad esempio quello per leggere i file dal file system, **non supportano le Promise**.
+
+A partire da Node.js 8, esiste però una funzione apposita per "convertire" le *error-first callback* in Promise. Si fa così:
+
+```js
+const util = require('util');
+const fs = require('fs');
+
+const readFile = promisify(fs.readFile);
+
+// ora readFile è una Promise
+readFile('file.txt').then((content) => {
+    console.log(content);
+});
+```
+
+Cosa succede all'interno di `promisify`? Viene creata in modo automatico una Promise. Se vuoi capire meglio, dai un'occhiata al [codice sorgente di Node.js](https://github.com/nodejs/node/blob/v11.x/lib/internal/util.js#L255). È JavaScript abbastanza avanzato, ma a un certo punto (L275) si vede che viene creata la Promise, con `new Promise`. Poi viene chiamata la funzione da "promisificare" (L276), e la Promise viene "risolta" o "respinta" in base a se ci sono o meno errori.
+
+**SE TI SENTI PERSO**: lo sono anche io. Non sei obbligato/a ad usare le Promise, la stragrande maggioranza dei moduli non le supporta ancora, e il problema dell callback hell non è così comune se si organizza bene il codice. Ma se la cosa ti appassiona, la prossima sezione è per te.
+
+**Bonus**: `Promise.all([p1, p2, ..., pn])` serve per creare una Promise che al suo interno esegue il codice di tutte le Promise, in modo concorrente. I risultati vengono poi ritornati tutti insieme. C'è un esempio sulla [pagina di MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all).
 
 ## Cose moderne: async/await
 
-*coming soon*
+Ora che abbiamo incasinato le cose per bene con le Promise, proviamo a semplificarle. A partire da Node.js 7.6 (versione di JavaScript ES2017), è stato abilitato il supporto all'operatore `await`. Il suo scopo è quello di prendere una Promise e di eseguirla *come se fosse codice sincrono*.
+
+Ad esempio, prendiamo la Promise per leggere un file che abbiamo creato prima, e usiamola con await:
+
+```js
+let content = await readFile('file.txt');
+console.log(content);
+```
+
+**È ancora tutto asincrono e non bloccante, ma l'impressione è che il codice sia sincrono (e sequenziale).**
+
+Con await, le callback non si usano più. Ma per poterlo usare, devi avere a disposizione delle Promise.
+
+Per far funzionare il pezzo di codice sopra, dobbiamo però inserirlo in una funzione, e dichiarare la funzione come asincrona. Esempio:
+
+```js
+async function run() {
+    let content = await readFile('file.txt');
+    return content;
+}
+
+run();
+```
+
+La gestione degli errori si fa ora con `try...catch`, così:
+
+```js
+try {
+    let content = await readFile('file.txt');
+    return content;
+}
+catch (ex) {
+    console.log(ex);
+}
+```
 
 ## Come approfondire
 

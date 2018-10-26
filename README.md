@@ -115,8 +115,6 @@ let v = 1;
 v = 'ciao'; // il tipo cambia
 v = [1, 2, 3]; // due volte
 v = null; // qualsiasi variabile può assumere valore null
-
-// Ma tenete d'occhio le scale! cit.
 ```
 
 Questa "feature" è sia un grande vantaggio che un grande disastro. Dà una grande libertà nel modo in cui si usano le variabili, e permette in molti casi di accorciare il codice, ma è spesso fonte di bug. Una lista di casini che seguono da questa "feature" si trova [qua](https://github.com/denysdovhan/wtfjs) (ma sono cose abbastanza avanzate, leggerle all'inizio è un po' una follia).
@@ -793,11 +791,11 @@ app.use((req, res) => {
 });
 ```
 
-Nel codice sopra, registriamo un middleware chiamato `app.use()`. La funzione di callback viene chiamata non appena arriva una richiesta HTTP (una qualsiasi), e **l'elaborazione non procede finché non viene chiamata la funzione `next()`**.
+Nel codice sopra, registriamo un middleware chiamando `app.use()`. La funzione di callback viene chiamata non appena arriva una richiesta HTTP (una qualsiasi), e **l'elaborazione non procede finché non viene chiamata la funzione `next()`**.
 
 La stessa cosa avviene con il secondo middleware registrato, che questa volta però è specifico per l'endpoint `/` del server web.
 
-I middleware sono spesso comodi perché **permettono di manipolare la richiesta** in molti modi, ad esempio facendo il **parsing del corpo della richiesta prima dell'elaborazione dei suoi dati**. Possiamo usare i middlware anche per **gestire l'autenticazione/autorizzazione**, fermando subito le richieste non valide.
+I middleware sono spesso comodi perché **permettono di manipolare la richiesta** in molti modi, ad esempio facendo il **parsing del corpo della richiesta prima dell'elaborazione dei suoi dati**. Possiamo usare i middleware anche per **gestire l'autenticazione/autorizzazione**, fermando subito le richieste non valide.
 
 Un'altra applicazione interessante è quella di **mostrare una pagina di errore 404 personalizzata**. Lo si può fare come nell'esempio sopra, aggiungendo un middleware dopo tutti gli altri. Quel middleware sarà raggiunto soltanto se nessun middleware precedente avrà preso in carico la richiesta HTTP.
 
@@ -950,3 +948,5 @@ app.listen(3000);
 La documentazione di MDN per quanto riguarda JavaScript è in generale eccellente. Se vuoi davvero andare in profondità, una lettura consigliata è [questo libro gratuito](https://github.com/getify/You-Dont-Know-JS) che si chiama *You don't know JS*. Esplora l'intero linguaggio JavaScript davvero molto in profondità.
 
 Per quanto riguarda il resto, in genere vale la [documentazione di Node.js](https://nodejs.org/dist/latest-v8.x/docs/api/) (attenzione alla versione), e quella dei moduli che usate, ad esempio [Express](http://expressjs.com/) e [request](https://github.com/request/request).
+
+Consiglio anche [questa newsletter settimanale](https://nodeweekly.com/), per restare aggiornati sugli aggiornamenti di Node.js e su articoli di approfondimento.

@@ -187,11 +187,11 @@ let istanza = new Classe();
 
 Detto questo, le classi non le troverai *quasi* mai in JavaScript o Node.js. Ci sono altri modi più consolidati di strutturare il codice, e dato che il linguaggio non ti obbliga ad avere a che fare con le classi, puoi tranquillamente continuare a credere che non esistano, un po' come fanno alcuni con le famiglie arcobaleno.
 
-Una cosa da da sapere è che quando hai a che fare con le classi ci devi mettere un `new` davanti.  Ad esempio, ti capiterà di scrivere `new Date();`, senza sapere se dietro quel new c'è una funzione o una classe vera e propria. Ma nulla di nuovo, no?
+Una cosa da sapere è che quando hai a che fare con le classi ci devi mettere un `new` davanti.  Ad esempio, ti capiterà di scrivere `new Date();`, senza sapere se dietro quel new c'è una funzione o una classe vera e propria. Ma nulla di nuovo, no?
 
 ## Object literal
 
-Al posto delle classi, un modo moolto diffuso per creare tipi personalizzati è utilizzare la notazione *object literal*. Questa permette di creare degli oggetti "al volo", e il risultato è molto simile a un dizionario, o hashmap.
+Al posto delle classi, un modo mooolto diffuso per creare tipi personalizzati è utilizzare la notazione *object literal*. Questa permette di creare degli oggetti "al volo", e il risultato è molto simile a un dizionario, o hashmap.
 
 ```js
 let roba = {
@@ -407,7 +407,7 @@ Nelle versioni recenti di npm, per installare un nuovo modulo nel progetto corre
 npm install nomemodulo
 ```
 
-È **importante** aver eseguito `npm init` **prima** di questo comando, perché altrimenti l'installazione del modulo potrebbe non essere eseguita nella cartella corrente ma in una "padre". 
+È **importante** aver eseguito `npm init` **prima** di questo comando, perché altrimenti l'installazione del modulo potrebbe non essere eseguita nella cartella corrente ma in una "padre".
 
 I comandi `npm init` e poi `npm install` creano due file: *package.json* e *package.lock.json*.
 

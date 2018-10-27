@@ -407,16 +407,23 @@ Nelle versioni recenti di npm, per installare un nuovo modulo nel progetto corre
 npm install nomemodulo
 ```
 
-È **importante** aver eseguito `npm init` **prima** di questo comando, perché altrimenti l'installazione del modulo potrebbe non essere eseguita nella cartella corrente ma in una "padre".
+È **importante** aver eseguito `npm init` **prima** di questo comando, perché altrimenti l'installazione del modulo potrebbe non essere eseguita nella cartella corrente ma in una "padre". 
 
 I comandi `npm init` e poi `npm install` creano due file: *package.json* e *package.lock.json*.
 
 - *package.json* memorizza le informazioni sul progetto, tra cui la lista delle sue dipendenze
 - *package.lock.json* memorizza le versioni *esatte* delle dipendenze del progetto, in modo che se un'altra persona vuole poi continuare lo sviluppo sul progetto, può scaricare le stesse *identiche* dipendenze
 
-I moduli scaricati (cioè le dipendenze) vengono installati nella cartella `node_modules`, che con il tempo diventerà enorme. Contiene il codice sorgente di tutti i moduli di cui il programma ha bisogno per funzionare. La cartella `node_modules` **non va mai committata con git**.
+I moduli scaricati (cioè le dipendenze) vengono installati nella cartella `node_modules`, che con il tempo diventerà enorme. Contiene il codice sorgente di tutti i moduli di cui il programma ha bisogno per funzionare.
 
-Consiglio di usare il sito web [gitignore.io](https://www.gitignore.io/) per generare un file .gitignore per Node.js e il vostro sistema operativo, da inserire nella radice della repository. L'effetto sarà quello di impedire che file che *devono* restare locali vengano tracciati da git.
+Come si utilizza **npm assieme a git**?
+
+- `npm init` va eseguito soltanto la prima volta, per creare il **file package.json, che va committato**
+- `npm install modulo` si usa ogni volta che si deve aggiungere un nuovo modulo. Il comando aggiorna sia il file *package.json* che il file *package.lock.json*. **Entrambi i file vanno committati** nella repository
+- la cartella `node_modules` **non va mai committata**
+- quando si scarica un progetto da git, bisogna installare le sue dipendenze. Per farlo, si esegue `npm install` senza nessuna opzione, così le dipendenze vengono lette in automatico dai file *package.json* e *package.lock.json*
+
+Consiglio anche di usare il sito web [gitignore.io](https://www.gitignore.io/) per generare un file .gitignore per Node.js e il vostro sistema operativo, da inserire nella radice della repository. L'effetto sarà quello di impedire che file che *devono* restare locali vengano tracciati da git.
 
 ## node e nodemon
 

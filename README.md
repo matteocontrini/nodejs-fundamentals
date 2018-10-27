@@ -744,13 +744,13 @@ app.listen(3000);
 
 Il modulo `express`  viene importato come costante, e questo modulo è una funzione. Nella seconda riga infatti eseguiamo `express()` per creare un'istanza del server web. Come si fa a sapere che si fa così e magari non scrivendo  `new express()`? Dipende da modulo a modulo, quindi bisogna leggere la sua documentazione.
 
-Successivamente, nel codice registriamo una funzione per ricevere le richieste GET all'endpoint / del server web. La funzione è una funzione di callback, e in questo caso riceve due variabili come argomenti: quella che descrive la richiesta e quella che descrive la risposta. `res` permette anche di rispondere e inviare qualcosa al client.
+Successivamente, nel codice registriamo una funzione per ricevere le richieste GET all'endpoint `/` del server web. La funzione è una funzione di callback, e in questo caso riceve due variabili come argomenti: quella che descrive la richiesta e quella che descrive la risposta. `res` permette anche di rispondere e inviare qualcosa al client.
 
 Alla fine del codice il server viene avviato con una chiamata a `app.listen()`. Da quel momento in poi, il server accetta richieste HTTP ed utilizza i middleware e le route specificate in precedenza per gestire le richieste.
 
 ## Express.js: rispondere con JSON
 
-Il codice sopra si può modificare lievemente per fare in modo che risponda alle richieste con un oggetto, che viene in automaticamente serializzato (cioè convertito da oggetto a stringa) da Express.
+Il codice sopra si può modificare lievemente per fare in modo che risponda alle richieste con un oggetto, che viene serializzato (cioè convertito da oggetto a stringa) in automatico da Express.
 
 ```js
 app.get('/', (req, res) => {
@@ -831,6 +831,8 @@ let name = modulo();
 console.log(name);
 ```
 
+Il modulo è *diventato* una funzione, ma con il vantaggio che all'interno del modulo ci possono essere altri cento metodi, inaccessibili dall'esterno!
+
 Un modulo può anche esportare più di una funzione, ad esempio (`modulo.js`):
 
 ```js
@@ -854,7 +856,7 @@ module.exports = {
 };
 ```
 
-Negli altri file, si potrà poi usare il modulo così:
+Negli altri file si potrà poi usare il modulo così:
 
 ```js
 const modulo = require('./modulo.js');
@@ -863,6 +865,8 @@ let age = modulo.getAge();
 
 console.log(name + '(' + age + ')');
 ```
+
+Non è obbligatorio esportare tutte le funzioni contenute in un modulo, anzi: il modulo deve fornire un'interfaccia pubblica per gli altri moduli, ma tenere "privato" tutto ciò che non deve essere accessibile direttamente.
 
 ## Express.js: i middleware come moduli
 
@@ -1081,9 +1085,9 @@ readFile('file.txt').then((content) => {
 
 Cosa succede all'interno di `promisify`? Viene creata in modo automatico una Promise. Se vuoi capire meglio, dai un'occhiata al [codice sorgente di Node.js](https://github.com/nodejs/node/blob/v11.x/lib/internal/util.js#L255). È JavaScript abbastanza avanzato, ma a un certo punto (L275) si vede che viene creata la Promise, con `new Promise`. Poi viene chiamata la funzione da "promisificare" (L276), e la Promise viene "risolta" o "respinta" in base a se ci sono o meno errori.
 
-**SE TI SENTI PERSO**: lo sono anche io. Non sei obbligato/a ad usare le Promise, la stragrande maggioranza dei moduli non le supporta ancora, e il problema dell callback hell non è così comune se si organizza bene il codice. Ma se la cosa ti appassiona, la prossima sezione è per te.
+**SE TI SENTI PERSO**: lo sono anche io. Non sei obbligato/a ad usare le Promise, la stragrande maggioranza dei moduli non le supporta ancora, e il problema del callback hell non è così comune se si organizza bene il codice. Ma se la cosa ti appassiona, la prossima sezione è per te.
 
-**Bonus**: `Promise.all([p1, p2, ..., pn])` serve per creare una Promise che al suo interno esegue il codice di tutte le Promise, in modo concorrente. I risultati vengono poi ritornati tutti insieme. C'è un esempio sulla [pagina di MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all).
+**Bonus**: `Promise.all([p1, p2, ..., pn])` serve per creare una Promise che al suo interno esegue il codice di tutte le Promise `p1`, `p2`, ecc., in modo concorrente. I risultati vengono poi ritornati tutti insieme. C'è un esempio sulla [pagina di MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all).
 
 ## Cose moderne: async/await
 

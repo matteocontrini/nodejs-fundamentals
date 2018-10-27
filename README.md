@@ -622,6 +622,8 @@ getResponseStatusCode(url, (err, code) => {
 });
 ```
 
+**Le funzioni asincrone adottano questa convenzione quasi sempre**, per cui ti capiterà di scrivere callback nel formato `(err, result) => {}` molto frequentemente. Ad esempio, tutte le funzioni asincrone fornite da Node.js, tra cui quelle per leggere e scrivere file, adottano questa convenzione. Soltanto alcuni (rari) moduli hanno deciso di recente di rimuovere il supporto alle callback e di passare alle Promise, che sono spiegate più avanti.
+
 Il funzionamento asincrono con le callback di Node.js impedisce di scrivere codice sequenziale come negli altri linguaggi. Se vogliamo quindi eseguire una richiesta asincrona dopo l'altra, dobbiamo *annidare* le richieste all'interno delle callback. In modo semplificato, intendo questo:
 
 ```js

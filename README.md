@@ -4,7 +4,7 @@
 
 * [Cos'è?](#cosè)
 * [Documentazione di JavaScript](#documentazione-di-javascript)
-* [Compilatore?](#compilatore)
+* [Un linguaggio interpretato o compilato?](#un-linguaggio-interpretato-o-compilato)
 * [Versioni di JavaScript](#versioni-di-javascript)
 * [Le variabili in JavaScript](#le-variabili-in-javascript)
 * [I tipi](#i-tipi)
@@ -14,7 +14,7 @@
 * [Object literal](#object-literal)
 * [Array literal](#array-literal)
 * [Truthiness e  falsiness](#truthiness-e--falsiness)
-* [For each?](#for-each)
+* [Cicli for e for...of](#cicli-for-e-forof)
 * [Undefined](#undefined)
 * [Node.js REPL](#nodejs-repl)
 * [npm](#npm)
@@ -22,7 +22,7 @@
 * [Importare i moduli nel codice](#importare-i-moduli-nel-codice)
 * [La natura asincrona di Node.js](#la-natura-asincrona-di-nodejs)
 * [Funzioni, funzioni anonime, e funzioni freccia](#funzioni-funzioni-anonime-e-funzioni-freccia)
-* [Callback?](#callback)
+* [Callback, dicevamo](#callback-dicevamo)
 * [Il loop degli eventi](#il-loop-degli-eventi)
 * [Torniamo alla definizione...](#torniamo-alla-definizione)
 * [Express.js](#expressjs)
@@ -48,7 +48,7 @@ La documentazione più autorevole per trovare informazioni su JavaScript è quel
 
 [Non usare W3Schools](https://skillsandmore.org/non-usare-w3schools/), grazie.
 
-## Compilatore?
+## Un linguaggio interpretato o compilato?
 
 JavaScript non è un linguaggio compilato, ma prevalentemente interpretato. Ciò significa che per eseguire un programma scritto in JavaScript ci vuole il codice sorgente del programma.
 
@@ -187,11 +187,11 @@ let istanza = new Classe();
 
 Detto questo, le classi non le troverai *quasi* mai in JavaScript o Node.js. Ci sono altri modi più consolidati di strutturare il codice, e dato che il linguaggio non ti obbliga ad avere a che fare con le classi, puoi tranquillamente continuare a credere che non esistano, un po' come fanno alcuni con le famiglie arcobaleno.
 
-Una cosa da sapere è che quando hai a che fare con le classi ci devi mettere un `new` davanti.  Ad esempio, ti capiterà di scrivere `new Date();`, senza sapere se dietro quel new c'è una funzione o una classe vera e propria. Ma nulla di nuovo, no?
+Una cosa da sapere è che quando hai a che fare con le classi ci devi mettere un `new` davanti. Ad esempio, ti capiterà di scrivere `new Date();`, senza sapere se dietro quel new c'è una funzione o una classe vera e propria. Ma nulla di nuovo, no?
 
 ## Object literal
 
-Al posto delle classi, un modo mooolto diffuso per creare tipi personalizzati è utilizzare la notazione *object literal*. Questa permette di creare degli oggetti "al volo", e il risultato è molto simile a un dizionario, o hashmap.
+Al posto delle classi, un modo mooolto diffuso per creare tipi personalizzati è utilizzare la notazione *object literal*. Questa permette di creare degli oggetti "al volo", e il risultato è simile a un dizionario, o hashmap.
 
 ```js
 let roba = {
@@ -201,7 +201,7 @@ let roba = {
 };
 ```
 
-A differenza delle classi, gli oggetti "anonimi" li troverai molto spesso, e ti troverai anche a scriverne. Ogni volta che ti serve creare un tipo "composto", usa la notazione *object literal*. È gratis.
+A differenza delle classi, gli oggetti "anonimi" li troverai spesso, e ti troverai anche a scriverne. Ogni volta che ti serve creare un tipo "composto", usa la notazione *object literal*. È gratis.
 
 Dal codice sopra si può osservare di nuovo la flessibilità di JavaScript. Il numero di proprietà/campi, così come il loro tipo, è completamente libero, e come detto prima può cambiare durante l'esecuzione.
 
@@ -343,7 +343,7 @@ const PORT = process.env.PORT || 3000;
 
 Il significato è che la costante `PORT` assume il valore della variabile `process.env.PORT` (cioè una variabile d'ambiente di nome `PORT`) se ha un valore (secondo la regola sopra), altrimenti il valore costante 3000.
 
-## For each?
+## Cicli for e for...of
 
 Il ciclo for esiste e funziona come negli altri linguaggi:
 
@@ -569,9 +569,7 @@ request(url, (err, res, body) => {
 
 Ecco, questa è attualmente la sintassi consigliata per le *funzioni callback* (ci arriviamo in un attimo). Quindi, quando devi passare una funzione come parametro, usa una funzione a freccia, perché così fan tutti (semicit.).
 
-## Callback?
-
-Parlavamo di funzioni callback, no?
+## Callback, dicevamo
 
 Una **funzione di callback** è una funzione che viene chiamata al termine dell'elaborazione di una richiesta di I/O asincrona.
 

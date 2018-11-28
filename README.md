@@ -56,7 +56,7 @@ Si dice *prevalentemente* interpretato perché nelle implementazioni più recent
 
 Per eseguire del codice JavaScript c'è quindi un solo passaggio, e cioè si invoca l'interprete sul codice sorgente, e lui lo esegue, subito.
 
-In Java, invece, un file di codice viene compilato in un file con estensione .class, che contiene il bytecode (cioè un linguaggio intermedio), e poi in un momento separato viene eseguito (usando la JVM). Per i dettagli => Abeni.
+In Java, invece, un file di codice viene compilato in un file con estensione .class, che contiene il bytecode (cioè un linguaggio intermedio), e poi in un momento separato viene eseguito (usando la JVM).
 
 ## Versioni di JavaScript
 
@@ -1129,8 +1129,8 @@ catch (ex) {
 
 ## Come approfondire
 
-La documentazione di MDN per quanto riguarda JavaScript è in generale eccellente. Se vuoi davvero andare in profondità, una lettura consigliata è [questo libro gratuito](https://github.com/getify/You-Dont-Know-JS) che si chiama *You don't know JS*. Esplora l'intero linguaggio JavaScript davvero molto in profondità.
+La documentazione di MDN per quanto riguarda JavaScript è in generale eccellente. Se vuoi andare in profondità, una lettura consigliata è [questo libro gratuito](https://github.com/getify/You-Dont-Know-JS) che si chiama *You don't know JS*. Esplora l'intero linguaggio JavaScript in modo davvero completo.
 
 Per quanto riguarda il resto, in genere vale la [documentazione di Node.js](https://nodejs.org/dist/latest-v8.x/docs/api/) (attenzione alla versione), e quella dei moduli che usate, ad esempio [Express](http://expressjs.com/) e [request](https://github.com/request/request).
 
-Consiglio anche [questa newsletter settimanale](https://nodeweekly.com/), per restare aggiornati sugli aggiornamenti di Node.js e su articoli di approfondimento.
+Consiglio anche [questa newsletter settimanale](https://nodeweekly.com/), per restare aggiornato sulle nuove versioni di Node.js e ricevere articoli di approfondimento.

@@ -40,7 +40,7 @@
 
 L'equivalente di Node.js per Java è il JRE (Java Runtime Environment), che in fase di sviluppo è affiancato dal JDK (Java Development Kit), cioè una suite di tool di compilazione per permettere lo sviluppo di un'applicazione.
 
-Per chi conosce .NET Core, vale la stessa analogia. L'SDK si usa in fase di sviluppo, mentre il .NET Core Runtime in fase di esecuzione del programma.
+Per chi conosce .NET Core, vale la stessa analogia. L'SDK si usa in fase di sviluppo, mentre CoreCLR (Common Language Runtime) in fase di esecuzione del programma.
 
 ## Documentazione di JavaScript
 

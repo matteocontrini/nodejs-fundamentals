@@ -1,5 +1,11 @@
 # Fondamentali di Node.js [![This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 
+>⚠️ ⚠️ ⚠️
+>
+>Questo documento è stato scritto qualche anno fa e non è pertanto aggiornato con le ultime evoluzioni di JavaScript e relative best practice. È ancora valido come introduzione leggera a JavaScript ma alcune cose sono superate. Anche il libro menzionato in fondo per alcuni aspetti non è più attuale e la seconda edizione non è ancora completa.
+>
+>Se qualcuno prenderà questo documento come riferimento, consiglio di integrarlo con [javascript.info](https://javascript.info/), con una particolare attenzione per classi, Promise e async/await (e le closure, un concetto molto importante).
+
 ## Indice:
 
 * [Cos'è?](#cosè)
